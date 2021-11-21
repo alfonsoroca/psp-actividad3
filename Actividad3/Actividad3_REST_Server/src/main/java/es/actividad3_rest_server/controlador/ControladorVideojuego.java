@@ -28,14 +28,14 @@ public class ControladorVideojuego {
 	// Configuración de los diferentes endpoints del requerimiento.
 
 	// POST
-	// Dar de alta un videojuego nuevo cuando su id no coincide con ningún id de los
-	// videojuegos almacenados.
+	// Dar de alta un videojuego nuevo cuando su id o nombre no coincide, con ningún
+	// id o nombre de los videojuegos almacenados.
 	@PostMapping(path = "videojuegos/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Videojuego> postVideojuego(@PathVariable("id") String id, @RequestBody Videojuego v) {		
+	public ResponseEntity<Videojuego> postVideojuego(@PathVariable("id") String id, @RequestBody Videojuego v) {
 		System.out.println("Tramitando el alta del " + v);
-		Videojuego nuevoVideojuego = daoVideojuego.add(v);		
+		Videojuego nuevoVideojuego = daoVideojuego.add(v);
 		// Con el condicional controlamos los resultados de la creación del videojuego.
-		if (nuevoVideojuego != null) {			
+		if (nuevoVideojuego != null) {
 			return new ResponseEntity<Videojuego>(v, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<Videojuego>(HttpStatus.METHOD_NOT_ALLOWED);
@@ -46,12 +46,12 @@ public class ControladorVideojuego {
 	// Eliminación de un videojuego que identificamos pos su id el cual pasamos por
 	// url al ser una clave primaria.
 	@DeleteMapping(path = "videojuegos/{id}")
-	public ResponseEntity<Videojuego> deleteVideojuego(@PathVariable String id) {		
+	public ResponseEntity<Videojuego> deleteVideojuego(@PathVariable String id) {
 		System.out.println("Videojuego a borrar con id " + id);
-		Videojuego vDelete = daoVideojuego.delete(id);		
-		if (vDelete != null) {			
+		Videojuego vDelete = daoVideojuego.delete(id);
+		if (vDelete != null) {
 			return new ResponseEntity<Videojuego>(vDelete, HttpStatus.OK);
-		} else {			
+		} else {
 			return new ResponseEntity<Videojuego>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -61,11 +61,11 @@ public class ControladorVideojuego {
 	@PutMapping(path = "videojuegos/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Videojuego> putVideojuego(@PathVariable("id") String id, @RequestBody Videojuego v) {
 		System.out.println("Videojuego a modificar con id " + id);
-		System.out.println("Datos a modificar del " + v);
+		System.out.println("Datos nuevos " + v);
 		Videojuego vUpdate = daoVideojuego.update(v);
-		if (vUpdate != null) {			
+		if (vUpdate != null) {
 			return new ResponseEntity<Videojuego>(v, HttpStatus.OK);
-		} else {			
+		} else {
 			return new ResponseEntity<Videojuego>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -81,15 +81,14 @@ public class ControladorVideojuego {
 		// Con el condicional controlamos los resultados de la búsqueda.
 		if (v != null) {
 			return new ResponseEntity<Videojuego>(v, HttpStatus.OK);
-		} else {			
-			return new ResponseEntity<Videojuego>(HttpStatus.NOT_FOUND);			
+		} else {
+			return new ResponseEntity<Videojuego>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 	// GET
 	// Obtener la lista de videojuegos completa. Vamos a devolver la información en
-	// formato
-	// JSON.
+	// formato JSON.
 	@GetMapping(path = "videojuegos", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ArrayList<Videojuego>> listaVideojuegos() {
 		ArrayList<Videojuego> listaVideojuegos = daoVideojuego.lista();

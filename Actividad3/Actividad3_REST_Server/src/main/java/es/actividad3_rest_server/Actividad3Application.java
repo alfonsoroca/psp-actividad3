@@ -11,5 +11,4 @@ public class Actividad3Application {
 		SpringApplication.run(Actividad3Application.class, args);
 		System.out.println("Servicio Rest -> Todo cargado!!!");
 	}
-
 }

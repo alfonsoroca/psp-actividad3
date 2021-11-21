@@ -18,32 +18,22 @@ import es.actividad3_rest_cliente.servicio.ServicioProxyVideojuego;
 @SpringBootApplication
 public class Actividad3RestClienteApplication implements CommandLineRunner {
 
-	// Primero inyectaremos todos los objetos que necesitamos para
-	// acceder a nuestro ServicioRest, el ServicioProxyPersona y el
-	// ServicioProxyMensaje
+	// Inyectamos todos los objetos que necesitamos para acceder a nuestro
+	// ServicioRest y el ServicioProxyVideojuego
 	@Autowired
 	private ServicioProxyVideojuego spv;
 
-	// Tambien necesitaremos acceder al contexto de Spring para parar
-	// la aplicacion, ya que esta app al ser una aplicacion web se
-	// lanzará en un tomcat. De esta manera le decimos a Spring que
-	// nos inyecte su propio contexto.
+	// Inyectamos el propio ocntexto de Spring.
 	@Autowired
 	private ApplicationContext context;
-
-	// En este metodo daremos de alta un objeto de tipo RestTemplate que sera
-	// el objeto mas importante de esta aplicacion. Sera usado por los
-	// objetos ServicioProxy para hacer las peticiones HTTP a nuestro
-	// servicio REST. Como no podemos anotar la clase RestTemplate porque
-	// no la hemos creado nosotros, usaremos la anotacion @Bean para decirle
-	// a Spring que ejecute este metodo y meta el objeto devuelto dentro
-	// del contexto de Spring con ID "restTemplate" (el nombre del metodo)
+	
+	// Damos de alta un objeto RestTemplate para la comunicación con el servidor
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
 
-	// Atributos de un videojuego e inicializaicón de Scanner
+	// Atributos de un videojuego e inicialización de Scanner
 	String id, nombre, empresa;
 	int nota;
 	Scanner sc = new Scanner(System.in);
@@ -94,7 +84,6 @@ public class Actividad3RestClienteApplication implements CommandLineRunner {
 				// El cliente elige la opción 5 llamamos al método lista.
 				lista();
 				break;
-				
 			case "6":
 				// El cliente elige la opción 5 salimos del bucle do-while.
 				break;
@@ -108,7 +97,8 @@ public class Actividad3RestClienteApplication implements CommandLineRunner {
 		salir();
 	}
 
-	// Métodos que determinan la funcionalidad que elige el cliente a través del menú
+	// Métodos que determinan la funcionalidad que elige el cliente a través del
+	// menú
 	private void alta() {
 
 		// Alta de videojuego
@@ -125,7 +115,7 @@ public class Actividad3RestClienteApplication implements CommandLineRunner {
 		System.out.println("Cliente REST ->		Introduce la nota del videojuego...");
 		nota = Integer.parseInt(sc.nextLine());
 		Videojuego vjAdd = spv.add(new Videojuego(id, nombre, empresa, nota));
-		
+
 		if (vjAdd != null) {
 			System.out.println("Cliente REST -> Se ha añadido al servidor el " + vjAdd);
 		} else {
@@ -192,14 +182,14 @@ public class Actividad3RestClienteApplication implements CommandLineRunner {
 			System.out.println("Cliente REST ->	No existe el videojuego con id " + id);
 		}
 	}
-	
+
 	private void lista() {
-		
+
 		// Obtener lista de videojuegos
-		List<Videojuego> list= spv.list();
+		List<Videojuego> list = spv.list();
 		for (Videojuego v : list) {
 			System.out.println(v);
-		}		
+		}
 	}
 
 	private void salir() {

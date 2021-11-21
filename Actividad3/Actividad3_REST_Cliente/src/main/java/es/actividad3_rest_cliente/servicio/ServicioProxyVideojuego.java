@@ -12,16 +12,15 @@ import org.springframework.web.client.RestTemplate;
 
 import es.actividad3_rest_cliente.entidad.Videojuego;
 
-//Con esta anotacion damos de alta un objeto de tipo
-//ServicioProxyVideojuego dentro del contexto de Spring
+// Damos de alta un objeto de tipo ServicioProxyVideojuego dentro del contexto de Spring
 @Service
 public class ServicioProxyVideojuego {
 
 	// La URL del servidor del servicio REST de videojuegos
 	public static final String URL = "http://localhost:8080/videojuegos/";
 
-	// Inyección el objeto de tipo RestTemplate para hacer
-	// las peticiones HTTP al servicio REST
+	// Inyección del objeto de tipo RestTemplate para hacer las peticiones HTTP al
+	// servicio REST
 	@Autowired
 	private RestTemplate restTemplate;
 
@@ -86,7 +85,7 @@ public class ServicioProxyVideojuego {
 	 */
 	public boolean update(Videojuego v) {
 		try {
-			restTemplate.put(URL + v.getId(), v, Videojuego.class);			
+			restTemplate.put(URL + v.getId(), v, Videojuego.class);
 			return true;
 		} catch (HttpClientErrorException e) {
 			System.out.println("update -> NO se ha modificado el " + v);
@@ -117,11 +116,12 @@ public class ServicioProxyVideojuego {
 	/**
 	 * Metodo para devolver todos los videojuegos almacenados en el servicio REST.
 	 * 
-	 * @return el listado de los videojuegos o null en caso de algun error con el servicio REST.
+	 * @return el listado de los videojuegos o null en caso de algun error con el
+	 *         servicio REST.
 	 */
 	public List<Videojuego> list() {
 
-		try {			
+		try {
 			ResponseEntity<Videojuego[]> re = restTemplate.getForEntity(URL, Videojuego[].class);
 			Videojuego[] arrayVideojuegos = re.getBody();
 			System.out.println("list -> Codigo de respuesta: " + re.getStatusCode());

@@ -107,27 +107,27 @@ public class DaoVideojuego {
 		for (Videojuego vj : listaJuegos) {
 			if (vj.getId().equalsIgnoreCase(v.getId())) {
 				Videojuego vjAux = vj;
+				System.out.println("Datos modificados (antiguos y modificados) " + vj);
 				vjAux.setNombre(v.getNombre());
 				vjAux.setEmpresa(v.getEmpresa());
-				vjAux.setNota(v.getNota());
-				System.out.println("Se ha actualizado el " + vjAux);
+				vjAux.setNota(v.getNota());				
 				return vjAux;
 			}
 		}
 		System.out.println("No se puede actualizar el videojuego porque no existe ;P");
 		return null;
 	}
-
+	
 	/**
 	 * Método que añade un videojuego a la lista de videojuegos si no existe su id o
 	 * su nombre.
 	 * 
 	 * @param v Objeto videojuego que queremos añadir a la lista.
 	 * @return El objeto videojuego añadido a la lista o null si ya existe un objeto
-	 *         videojuego son ese id.
+	 *         videojuego son ese id o nombre.
 	 */
 	public Videojuego add(Videojuego v) {
-		// Variable que controla la existencia de los nomebres e id de los videojuegos.
+		// Variable que controla la existencia de los nombres e id de los videojuegos.
 		boolean idNombreExiste = false;
 		for (Videojuego vj : listaJuegos) {
 			if (vj.getId().equalsIgnoreCase(v.getId()) || vj.getNombre().equalsIgnoreCase(v.getNombre())) {

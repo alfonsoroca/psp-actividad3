@@ -54,5 +54,4 @@ public class Videojuego {
 	public String toString() {
 		return "Videojuego [id=" + id + ", nombre=" + nombre + ", empresa=" + empresa + ", nota=" + nota + "]";
 	}
-
 }
